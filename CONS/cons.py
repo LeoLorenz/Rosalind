@@ -18,20 +18,29 @@ with open ('rosalind_cons.txt', 'r') as input_file:
             strands[cont] = ""
         else:
             strands[cont] += line
-
-for element in strands:
-    for i in range(len(strands[0])):
-        a[i]+= (element[i].count("A"))
-        c[i]+= (element[i].count("C"))
-        g[i]+= (element[i].count("G"))
-        t[i]+= (element[i].count("T"))
-        
-
-
+max_key = []
+cons = ""
+res = [{"A" : 0, "T" : 0, "G" : 0, "C" : 0} for x in range(len(strands[0]))]
 for i in range(len(strands[0])):
     for element in strands:
-        a[i]+= (element[i].count("A"))
-        c[i]+= (element[i].count("C"))
-        g[i]+= (element[i].count("G"))
-        t[i]+= (element[i].count("T"))
+        if element[i] == "A":
+            res[i]["A"] += 1
+        elif element[i] == "C":
+            res[i]["C"] += 1
+        elif element[i] == "T":
+            res[i]["T"] += 1
+        elif element[i] == "G":
+            res[i]["G"] += 1
+    max_key =[k for k, v in res[i].items() if v == max(res[i].values())]
+    cons += max_key[0]
+
+
+print(cons, sep = "", end = "")
+for base in ("A", "C", "G", "T"):
+    print("\n")
+    print(f"{base}:", end = "")
+    for element in res:
+        print(f"{element[base]}", end = "")
         
+        
+    
